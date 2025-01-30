@@ -236,7 +236,10 @@ class PDFViewer {
     this.zoomOutButton.onclick = handleZoom;
     this.zoomInputElement.addEventListener("beforeinput", onBeforeInput);
     this.zoomInputElement.onchange = ((e) => {
+      e.currentTarget.blur();
+
       const scale = parseInt(e.currentTarget.value) / 100;
+
       if (this.scale === scale) return;
       else this.scale = scale;
     }).bind(this);

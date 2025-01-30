@@ -84,10 +84,10 @@ button {
   font-size: 1.2rem;
   font-weight: bold;
   font-family: inherit;
-  background-color: var(--slate-700);
+  background-color: transparent;
   cursor: pointer;
   transition: box-shadow .1s ease-in-out, color .1s ease-in-out, background-color .1s ease-in-out;
-  color: var(--slate-100);
+  color: var(--slate-200);
   margin: 0.1em;
   border-width: 0;
   aspect-ratio: 1 / 1;
@@ -99,8 +99,8 @@ button {
   box-sizing: border-box; /* stop overflow when there is padding */
 }
 button:hover {
-  color: var(--slate-700);
-  background-color: var(--slate-100);
+  /* color: var(--slate-700); */
+  background-color: var(--slate-600);
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 button:focus,
@@ -187,6 +187,13 @@ select:hover {
   align-items: center;
   width: 1.5em;
   height: 1.5em;
+  background-color: var(--slate-700);
+}
+
+#uploadBtn:hover {
+  /* color: var(--slate-700); */
+  background-color: var(--slate-600);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 #uploadBtnText {
@@ -400,14 +407,12 @@ input[type=text] {
 
 #toolbar .item #close-button {
   cursor: pointer;
-  background-color: transparent;
   height: 100%;
   margin: 0.1em;
 }
 
 #toolbar .item #render-mode-button {
   cursor: pointer;
-  background-color: transparent;
   position: relative;
   height: 100%;
   margin: 0.1em;
@@ -451,7 +456,6 @@ input[type=text] {
 
 .pdf-nav .pdf-nav-button {
   cursor: pointer;
-  background-color: transparent;
   position: relative;
   height: 100%;
   transform: rotate(90deg);
@@ -472,7 +476,6 @@ input[type=text] {
 
 #zoom .zoom-button {
   cursor: pointer;
-  background-color: transparent;
   position: relative;
   height: 100%;
   margin: 0.1em;
@@ -498,14 +501,14 @@ input[type=text] {
   align-items: center;
 }
 
-.pdf-nav-button:hover,
-#toolbar .item #close-button:hover,
-#toolbar .item #render-mode-button:hover,
-#toolbar .item #zoom .zoom-button:hover {
-  color: var(--slate-700);
-  background-color: var(--slate-100);
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-}
+/* .pdf-nav-button:hover, */
+/* #toolbar .item #close-button:hover, */
+/* #toolbar .item #render-mode-button:hover, */
+/* #toolbar .item #zoom .zoom-button:hover { */
+/*   color: var(--slate-700); */
+/*   background-color: var(--slate-100); */
+/*   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px; */
+/* } */
 
 .loader {
   display: flex;
