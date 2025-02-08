@@ -7,6 +7,8 @@ import {
 import * as pdfjsLib from "pdfjs-dist"
 import { PDFViewer } from "./viewer";
 import { PDFRenderQueue } from "./render_queue";
+import { TextLayerBuilder } from "pdfjs-dist/web/pdf_viewer.mjs";
+
 
 
 /**
@@ -26,6 +28,8 @@ export class PDFPageView {
   /** @type {PDFRenderQueue} **/
   #renderQueue = null;
   /** @type {HTMLElement} **/
+  #textLayerDiv = null;
+  /** @type {HTMLElement} **/
   #canvas = null;
   /** @type {HTMLElement} **/
   pageContainer = null;
@@ -33,6 +37,10 @@ export class PDFPageView {
   #prevScale = null;
   /** @type {number} **/
   #scale = null;
+  /** @type {TextLayer} **/
+  #textLayer = null;
+  /** @type {TextLayerBuilder} **/
+  textLayerBuilder = null;
   /** @type {RenderStates} **/
   #renderState = RenderStates.initial;
   /** @type {Error} **/
@@ -153,6 +161,30 @@ export class PDFPageView {
       transform,
       viewport,
     };
+
+    // Create new text layer builder and div if doesnt exist (only the first time)
+    if (!this.textLayerDiv) {
+      const textLayerDiv = document.createElement("div");
+      textLayerDiv.id = "textLayerDiv";
+
+      this.textLayerDiv = textLayerDiv;
+    }
+    
+    if (!this.textLayerBuilder) {
+      const newTextLayerBuilder = new TextLayerBuilder({
+        pdfPage: this.#page,
+      })
+
+      this.textLayerBuilder = newTextLayerBuilder;
+    }
+    
+    const textLayerBuilder = this.textLayerBuilder;
+    
+    // Set scale in the CSS for the text layer
+    const scaleFactor = this.#renderContext.viewport.scale;
+    textLayerBuilder.div.style.setProperty('--scale-factor', scaleFactor);
+
+    this.textLayerBuilder = textLayerBuilder;
   }
 
   /**
@@ -194,6 +226,8 @@ export class PDFPageView {
       async () => {
         // console.log('Page rendered!', this.id);
         await this.#finishRender(renderTask, callback);
+        await this.textLayerBuilder.render(this.#renderContext.viewport, 'display');
+        console.log(this.textLayerBuilder);
       },
       (error) => {
         // console.error('Page error!', this.id);
@@ -241,6 +275,7 @@ export class PDFPageView {
 
     this.renderState = RenderStates.finished;
     this.pageContainer.appendChild(this.#canvas);
+    this.pageContainer.appendChild(this.textLayerBuilder.div);
     callback?.(this);
 
     if (error) throw error;
