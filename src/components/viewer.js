@@ -3,6 +3,17 @@ import pdfJSWorkerURL from "pdfjs-dist/build/pdf.worker?url"
 import { LoaderElement, RenderModes, RenderStates, getVisibleElements } from "./utils"
 import { PDFPageView } from "./page_view"
 import { PDFRenderQueue } from "./render_queue";
+import { html } from "./utils";
+import toolbar from "./toolbar";
+
+
+export default html`
+  <div id="pdf-viewer">
+    ${toolbar}
+    <div id="pdf-container"></div>
+  </div>
+  <div id="overlay"></div>
+`;
 
 
 /**
@@ -588,4 +599,8 @@ class PDFViewer {
   }
 };
 
-export { PDFViewer, PDFViewBuffer };
+
+export {
+  PDFViewer,
+  PDFViewBuffer
+};

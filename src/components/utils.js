@@ -93,7 +93,8 @@ function getVisibleElements({
   views,
   sortByVisibility = true,
 }) {
-  const top = scrollElement.scrollTop, bottom = top + scrollElement.clientHeight;
+  const top = scrollElement.scrollTop + scrollElement.offsetTop,
+    bottom = top + scrollElement.clientHeight;
   // const left = scrollElement.scrollLeft, right = left + scrollElement.clientWidth;
 
   function isElementVisibleFromTop(view) {
